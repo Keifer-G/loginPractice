@@ -1,0 +1,189 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+    .register{
+        background-color: rgb(254, 224, 0);
+        height: 400px;
+        width: 400px;
+        border: 2px solid rgb(254, 190, 0);
+        border-radius: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    html{
+        height: 100%;
+        width: 100%;
+        background-color: #bbb;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .content p{
+        padding-bottom: 36px;
+        font-size: 20px;
+        color: #666666;
+        display: flex;
+        align-items: center;
+    }
+    .content button{
+        width: 100%;
+        height: 40px;
+        border-radius: 10px;
+        font-size: 24px;
+        color: #fff;
+        background-color:rgb(254, 190, 0);
+        border: rgb(254, 190, 0) solid 1px;
+    }
+    .content input{
+        border-radius: 5px;
+        height: 24px;
+        -webkit-appearance: none; /*去除系统默认的样式*/
+        outline: none;
+        border: none;
+        color:#bbb;
+        width: 188px;
+        text-indent: 4px; 
+    }
+    .b{
+        text-decoration: none;
+        color: #666;
+        font-size: 13px;
+    }
+    input:focus{
+        outline: none;
+        border: 1px solid rgb(254, 190, 0);
+    }
+    button:focus{
+        outline: none;
+    }
+    .a{
+        margin-top: 10px;
+        justify-content: flex-end;
+    }
+    #realname{
+        position: fixed;
+        color: #666;
+        margin-left: 10px;
+        margin-top: -74px;
+        font-size: 14px;
+        display: none;
+    }
+    #realpassword{
+        position: fixed;
+        color: #666;
+        font-size: 14px;
+        margin-left: 2px;
+        margin-top: -10px;
+        display: none;
+    }
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    </style>
+</head>
+<body>
+    <div class="register">
+        <div class="content">
+            <form method="POST">
+                <p>用户名：
+                    <input type="text" name="name" id="valuein" value="请输入用户名">
+                </p>
+                <p>密&emsp;码：
+                    <input type="password" name="password" id="valueon" value="请输入密码">
+                </p>
+                <button id="button" type="button">登陆</button>
+            </form>
+            <p class="a"><a href="http://localhost:3000/login" class="b">还没有账号？前往注册</a></p>
+        </div>
+        <p id="realname">请输入有效的用户名</p>
+        <p id="realpassword">请输入正确的密码</p>
+    </div>
+    
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+       // button设置
+       let button = document.getElementById('button')
+        let realname = document.getElementById('realname')
+        let realpassword = document.getElementById('realpassword')
+
+        button.onclick=(e)=>{
+            button.style.border = "1px solid #fff";
+            button.style.fontSize = "20px"
+            
+            setTimeout(()=>{
+                button.style.border = 'none';
+                button.style.fontSize = "24px"
+            },200)  
+            // 阻止内容有问题的提交
+            // 利用切换button的type属性在控制表单是否提交
+            if(inputin.value==='' || inputin.value ==='请输入用户名'){
+                realname.style.display = 'block';
+                setTimeout(()=>{
+                    realname.style.display = 'none';
+                },3000)
+            }else if((inputin.value !=='' || inputin.value !=='请输入用户名') && (inputon.value==='' || inputon.value === '请输入密码')){
+                button.type = 'button'
+            }else{
+                button.type = 'submit'
+                setTimeout(()=>{
+                    button.type = 'button'
+                },1000)
+            }
+            if(inputon.value==='' || inputon.value === '请输入密码'){
+                realpassword.style.display = 'block'
+                setTimeout(()=>{
+                    realpassword.style.display = 'none'
+                },3000)
+            }else if((inputin.value ==='' || inputin.value ==='请输入用户名') && (inputon.value!=='' || inputon.value !== '请输入密码')){
+                button.type = 'button'
+            }else{
+                button.type = 'submit'
+                setTimeout(()=>{
+                    button.type = 'button'
+                },1000)
+            }
+        }
+        
+        // 设置input
+        let inputin = document.getElementById('valuein')
+        let inputon = document.getElementById('valueon')
+        
+            inputin.onclick = function(e){
+                e.stopPropagation();
+                if(inputin.value!=='' && inputin.value !=="请输入用户名"){
+                inputin.value = e.target.value
+                }else if(inputin.value ==="请输入用户名"){
+                inputin.value = "";
+                }
+                if(inputon.value ===""){
+                    inputon.value = "请输入密码"
+                }             
+            }
+            inputon.onclick = function(e){
+                e.stopPropagation();
+                if(inputon.value!=='' && inputon.value !=="请输入密码"){
+                inputon.value = e.target.value
+                }else if(inputon.value ==="请输入密码"){
+                inputon.value = "";
+                }
+                if(inputin.value===""){
+                    inputin.value ="请输入用户名"
+                }
+            }
+            document.onclick=function(){
+                if(inputon.value ===""){
+                    inputon.value = "请输入密码"
+                }  
+                if(inputin.value===""){
+                    inputin.value ="请输入用户名"
+                }
+            }   
+    </script>
+</body>
+</html>
